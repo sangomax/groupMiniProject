@@ -44,5 +44,6 @@ public class ControlGame {
         }
         return board;
     }
+    // Generic method: return possible position of the selected piece
 
 }

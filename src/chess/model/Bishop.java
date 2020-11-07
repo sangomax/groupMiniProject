@@ -21,4 +21,9 @@ public class Bishop extends Piece{
             return Constants.BISHOP_BLACK_PIECE + "\t";
         }
     }
+
+    // Boolean -> isValid method(current position, new position)
+
+    //  Method to return possible position of the selected piece
+    //-> isValidMove
 }

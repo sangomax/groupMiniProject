@@ -28,4 +28,15 @@ public class Position {
         }
 
     }
+
+
+    // Return board position (string letter position)
+
+    // Boolean -> isValid method(current position, new position)
+
+    // Boolean -> check if there is a piece or not on certain position
+
+
+
+
 }

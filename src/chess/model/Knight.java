@@ -21,4 +21,9 @@ public class Knight extends Piece{
             return Constants.KNIGHT_BLACK_PIECE + "\t";
         }
     }
+
+    // Boolean -> isValid method(current position, new position)
+
+    //  Method to return possible position of the selected piece
+    //-> isValidMove
 }

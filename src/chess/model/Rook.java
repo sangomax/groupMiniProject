@@ -21,4 +21,10 @@ public class Rook extends Piece{
             return Constants.ROOK_BLACK_PIECE + "\t";
         }
     }
+
+    // Boolean -> isValid method(current position, new position)
+
+
+    //  Method to return possible position of the selected piece
+    //-> isValidMove
 }

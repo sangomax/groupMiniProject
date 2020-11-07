@@ -18,6 +18,11 @@ public class Pawn extends Piece {
         }
     }
 
+    //position input -> get piece info -> move(depends on piece)
+
+
+    // set new position -> Pawn
+
     @Override
     public void move() {
         if (this.promoted) {
@@ -74,4 +79,11 @@ public class Pawn extends Piece {
     public void setNewPiece(Piece newPiece) {
         this.newPiece = newPiece;
     }
+
+
+    // Boolean -> isValid method(current position, new position)
+
+    //  Method to return possible position of the selected piece
+    //-> isValidMove
+
 }

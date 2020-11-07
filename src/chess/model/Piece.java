@@ -45,4 +45,12 @@ public abstract class Piece {
                 ", isWhite=" + isWhite +
                 '}';
     }
+
+
+    // Boolean -> isValidMove
+
+    // isValidMove
+
+    // remove method
+
 }

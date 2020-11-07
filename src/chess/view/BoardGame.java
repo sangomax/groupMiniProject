@@ -17,7 +17,7 @@ public class BoardGame {
             System.out.println(" " + (row + 1) );
         }
         System.out.println();
-        System.out.println("A\tB\tC\tD\tE\tF\tG\tH");
+        System.out.println("a\tb\tc\td\te\tf\tg\th");
 
     }
 

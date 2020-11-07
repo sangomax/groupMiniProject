@@ -24,4 +24,77 @@ public class Constants {
     public static final String QUEEN_WHITE_PIECE = "♕";
     public static final String KING_BLACK_PIECE = "♚";
     public static final String KING_WHITE_PIECE = "♔";
+
+    //Positions
+    public static final String A1 = "a1";
+    public static final String A2 = "a2";
+    public static final String A3 = "a3";
+    public static final String A4 = "a4";
+    public static final String A5 = "a5";
+    public static final String A6 = "a6";
+    public static final String A7 = "a7";
+    public static final String A8 = "a8";
+
+    public static final String B1 = "b1";
+    public static final String B2 = "b2";
+    public static final String B3 = "b3";
+    public static final String B4 = "b4";
+    public static final String B5 = "b5";
+    public static final String B6 = "b6";
+    public static final String B7 = "b7";
+    public static final String B8 = "b8";
+
+    public static final String C1 = "c1";
+    public static final String C2 = "c2";
+    public static final String C3 = "c3";
+    public static final String C4 = "c4";
+    public static final String C5 = "c5";
+    public static final String C6 = "c6";
+    public static final String C7 = "c7";
+    public static final String C8 = "c8";
+
+    public static final String D1 = "d1";
+    public static final String D2 = "d2";
+    public static final String D3 = "d3";
+    public static final String D4 = "d4";
+    public static final String D5 = "d5";
+    public static final String D6 = "d6";
+    public static final String D7 = "d7";
+    public static final String D8 = "d8";
+
+    public static final String E1 = "e1";
+    public static final String E2 = "e2";
+    public static final String E3 = "e3";
+    public static final String E4 = "e4";
+    public static final String E5 = "e5";
+    public static final String E6 = "e6";
+    public static final String E7 = "e7";
+    public static final String E8 = "e8";
+
+    public static final String F1 = "f1";
+    public static final String F2 = "f2";
+    public static final String F3 = "f3";
+    public static final String F4 = "f4";
+    public static final String F5 = "f5";
+    public static final String F6 = "f6";
+    public static final String F7 = "f7";
+    public static final String F8 = "f8";
+
+    public static final String G1 = "g1";
+    public static final String G2 = "g2";
+    public static final String G3 = "g3";
+    public static final String G4 = "g4";
+    public static final String G5 = "g5";
+    public static final String G6 = "g6";
+    public static final String G7 = "g7";
+    public static final String G8 = "g8";
+
+    public static final String H1 = "h1";
+    public static final String H2 = "h2";
+    public static final String H3 = "h3";
+    public static final String H4 = "h4";
+    public static final String H5 = "h5";
+    public static final String H6 = "h6";
+    public static final String H7 = "h7";
+    public static final String H8 = "h8";
 }

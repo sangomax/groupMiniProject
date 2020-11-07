@@ -4,8 +4,11 @@ public class Position {
 
     private Piece piece;
 
-    public Position(Piece piece) {
+    private String code;
+
+    public Position(Piece piece, String code) {
         this.piece = piece;
+        this.code = code;
     }
 
     public Piece getPiece() {

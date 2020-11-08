@@ -18,8 +18,8 @@ public class BoardGame {
         }
         System.out.println();
         System.out.println("a\tb\tc\td\te\tf\tg\th");
+        System.out.println();
 
     }
-
 
 }

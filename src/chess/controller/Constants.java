@@ -97,4 +97,16 @@ public class Constants {
     public static final String H6 = "h6";
     public static final String H7 = "h7";
     public static final String H8 = "h8";
+
+    public static final String ASK_WHITE_MOVE_MESSAGE = "White to move";
+    public static final String ASK_BLACK_MOVE_MESSAGE = "Black to move";
+    public static final String INPUT_UCI_MESSAGE = "Enter UCI (type 'help' for help):";
+    public static final String TYPE_HELP_HELP_MESSAGE = "* type 'help' for help";
+    public static final String TYPE_BOARD_HELP_MESSAGE = "* type 'board' to see the board again";
+    public static final String TYPE_RESIGN_HELP_MESSAGE = "* type 'resign' to resign";
+    public static final String TYPE_MOVES_HELP_MESSAGE = "* type 'move' to list all possible moves";
+    public static final String TYPE_SQUARE_HELP_MESSAGE = "* type a square (e.g. b1, e2) to list possible moves for that square";
+    public static final String TYPE_UCI_HELP_MESSAGE = "* type UCI (e.g. b1c3, e7e8q) to make a move";
+    public static final String WHITE_WON_RESIGN_MESSAGE = "Game Over - 1-0 - White won by resignation";
+    public static final String BLACK_WON_RESIGN_MESSAGE = "Game Over - 1-0 - Black won by resignation";
 }

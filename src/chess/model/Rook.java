@@ -2,6 +2,8 @@ package chess.model;
 
 import chess.controller.Constants;
 
+import java.util.ArrayList;
+
 public class Rook extends Piece{
 
     public Rook(boolean isWhite) {
@@ -9,8 +11,9 @@ public class Rook extends Piece{
     }
 
     @Override
-    public void move() {
+    public ArrayList<String> move(String position, Position[][] borad) {
         System.out.println("Horizontally or vertically");
+        return new ArrayList<>();
     }
 
     @Override

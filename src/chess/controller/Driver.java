@@ -26,10 +26,26 @@ public class Driver {
                 case "resign":  Messages.messageResignWin(isWhiteTurn);
                                 flagEndGame = true;
                                 break;
-                case "moves":
+                case "move":
+                                ControlGame.listAllPossibleMoves(board,isWhiteTurn);
                                 break;
                 default:
+                                if(Validation.isValidInput(userInput,isWhiteTurn,board)) {
+                                    String[] inputMove = ControlGame.getInfoMove(userInput);
+                                    if (inputMove[1] == null) {
+                                        ControlGame.listPossibleMoves(board, inputMove[0]);
+                                        continue;
+                                    } else {
+                                        Object[] o = ControlGame.move(board, inputMove[0], inputMove[1], inputMove[2]);
+                                        if (!(boolean) o[1]) {
+                                            continue;
+                                        }
+                                        board = (Position[][]) o[0];
+                                    }
+                                } else {
+                                    continue;
 
+                                }
             }
 
 

@@ -1,5 +1,7 @@
 package chess.model;
 
+import java.util.ArrayList;
+
 public abstract class Piece {
 
     private int value;
@@ -27,8 +29,6 @@ public abstract class Piece {
         isWhite = white;
     }
 
-    public abstract void move();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,6 +45,8 @@ public abstract class Piece {
                 ", isWhite=" + isWhite +
                 '}';
     }
+
+    public abstract ArrayList<String> move(String position, Position[][] borad);
 
 
     // Boolean -> isValidMove

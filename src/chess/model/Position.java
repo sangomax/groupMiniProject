@@ -19,6 +19,14 @@ public class Position {
         this.piece = piece;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         if(getPiece() == null) {
@@ -27,6 +35,13 @@ public class Position {
             return piece.toString();
         }
 
+    }
+
+    public boolean isEmpty() {
+        if(getPiece() == null) {
+            return true;
+        }
+        return false;
     }
 
 

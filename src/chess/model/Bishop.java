@@ -2,6 +2,8 @@ package chess.model;
 
 import chess.controller.Constants;
 
+import java.util.ArrayList;
+
 public class Bishop extends Piece{
 
     public Bishop(boolean isWhite) {
@@ -9,8 +11,9 @@ public class Bishop extends Piece{
     }
 
     @Override
-    public void move() {
+    public ArrayList<String> move(String position, Position[][] borad) {
         System.out.println("Diagonally");
+        return new ArrayList<>();
     }
 
     @Override

@@ -2,6 +2,8 @@ package chess.model;
 
 import chess.controller.Constants;
 
+import java.util.ArrayList;
+
 public class King extends Piece{
 
     public King(boolean isWhite) {
@@ -9,8 +11,9 @@ public class King extends Piece{
     }
 
     @Override
-    public void move() {
+    public ArrayList<String> move(String position, Position[][] borad) {
         System.out.println("One square");
+        return new ArrayList<>();
     }
 
     @Override

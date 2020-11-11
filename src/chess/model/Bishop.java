@@ -18,14 +18,30 @@ public class Bishop extends Piece {
         int indexNumber = Integer.valueOf(position.substring(1, 2)) - 1;
 
         if (isWhite()) {
-            if (borad[indexNumber + 1][indexLetter + 1].isEmpty()){
+            if (borad[indexNumber + 1][indexLetter + 1].isEmpty()
+                || (borad[indexNumber + 1][indexLetter + 1].getPiece().isWhite() != isWhite())){
+                for (int i = 1; i < 8; i++) {
+                    possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i));
+                }
             }
-            if (borad[indexNumber + 1][indexLetter - 1].isEmpty()){
+            if (borad[indexNumber + 1][indexLetter - 1].isEmpty()
+                || (borad[indexNumber + 1][indexLetter - 1].getPiece().isWhite() != isWhite())){
+                for (int i = 1; i < 8; i++) {
+                    possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber - i));
+                }
             }
         } else {
-            if (borad[indexNumber - 1][indexLetter + 1].isEmpty()){
+            if (borad[indexNumber - 1][indexLetter + 1].isEmpty()
+                || (borad[indexNumber - 1][indexLetter + 1].getPiece().isWhite() != isWhite())){
+                for (int i = 1; i < 8; i++) {
+                    possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i));
+                }
             }
-            if (borad[indexNumber - 1][indexLetter - 1].isEmpty()){
+            if (borad[indexNumber - 1][indexLetter - 1].isEmpty()
+                || (borad[indexNumber - 1][indexLetter - 1].getPiece().isWhite() != isWhite())){
+                for (int i = 1; i < 8; i++) {
+                    possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber - i));
+                }
             }
         }
         return possibilities;

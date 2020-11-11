@@ -41,6 +41,7 @@ public class Driver {
                                             continue;
                                         }
                                         board = (Position[][]) o[0];
+                                        BoardGame.drawBoard(board);
                                     }
                                 } else {
                                     continue;

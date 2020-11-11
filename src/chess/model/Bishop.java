@@ -2,6 +2,7 @@ package chess.model;
 
 import chess.controller.Constants;
 
+import chess.controller.ControlGame;
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
@@ -12,8 +13,22 @@ public class Bishop extends Piece {
 
     @Override
     public ArrayList<String> move(String position, Position[][] borad) {
-        System.out.println("Diagonally");
-        return new ArrayList<>();
+        ArrayList<String> possibilities = new ArrayList<>();
+        int indexLetter = Integer.valueOf(ControlGame.letterToNum(position.substring(0, 1)));
+        int indexNumber = Integer.valueOf(position.substring(1, 2)) - 1;
+
+        if (isWhite()) {
+            if (borad[indexNumber + 1][indexLetter + 1].isEmpty()){
+            }
+            if (borad[indexNumber + 1][indexLetter - 1].isEmpty()){
+            }
+        } else {
+            if (borad[indexNumber - 1][indexLetter + 1].isEmpty()){
+            }
+            if (borad[indexNumber - 1][indexLetter - 1].isEmpty()){
+            }
+        }
+        return possibilities;
     }
 
     @Override

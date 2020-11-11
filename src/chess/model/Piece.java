@@ -54,7 +54,6 @@ public abstract class Piece {
 //
 
 
-
     // isValidMove
 
     // remove method

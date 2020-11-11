@@ -29,7 +29,7 @@ public class Position {
 
     @Override
     public String toString() {
-        if(getPiece() == null) {
+        if (getPiece() == null) {
             return "•\t";
         } else {
             return piece.toString();
@@ -38,7 +38,7 @@ public class Position {
     }
 
     public boolean isEmpty() {
-        if(getPiece() == null) {
+        if (getPiece() == null) {
             return true;
         }
         return false;
@@ -50,8 +50,6 @@ public class Position {
     // Boolean -> isValid method(current position, new position)
 
     // Boolean -> check if there is a piece or not on certain position
-
-
 
 
 }

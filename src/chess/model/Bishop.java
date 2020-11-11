@@ -27,6 +27,7 @@ public class Bishop extends Piece{
 
     // Boolean -> isValid method(current position, new position)
 
+
     //  Method to return possible position of the selected piece
     //-> isValidMove
 }

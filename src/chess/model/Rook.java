@@ -31,7 +31,7 @@ public class Rook extends Piece{
         }
 
         if (isWhite()) {
-            if (position.substring(0, 1).equals(temp[index])) {         // Per alphabet
+            if (position.substring(0, 1).equals(temp[index])) {
                 for (int i = 1; i < 8; i++) {
                     possibilities.add(position.substring(0, 1) + i);
                     if (borad[i][ControlGame.letterToNum(temp[index])] != borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(position.substring(0, 1))]
@@ -41,7 +41,7 @@ public class Rook extends Piece{
                     }
                 }
             }
-            if(position.substring(1,2).equals(temp2[index2])){         // per number
+            if(position.substring(1,2).equals(temp2[index2])){
                 for (int i = 0; i < 8; i++){
                     if (borad[Integer.valueOf(position.substring(1,2)) - 1][ControlGame.letterToNum(temp[i])] != borad[Integer.valueOf(position.substring(1,2)) -1][ControlGame.letterToNum(position.substring(0, 1))]
                             && !borad[Integer.valueOf(position.substring(1,2)) - 1][ControlGame.letterToNum(temp[i])].isEmpty()){
@@ -52,7 +52,7 @@ public class Rook extends Piece{
                 }
             }
         } else {
-            if (position.substring(0, 1).equals(temp[index])) {             // case : a
+            if (position.substring(0, 1).equals(temp[index])) {
 
                 for (int i = 7; i >= 0; i--) {
                     if (borad[i][ControlGame.letterToNum(temp[index])] != borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(position.substring(0, 1))]

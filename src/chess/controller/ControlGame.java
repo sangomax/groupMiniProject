@@ -72,7 +72,7 @@ public class ControlGame {
         listLetterToNum.put("g", 6);
         listLetterToNum.put("h", 7);
 
-        return listLetterToNum.get(letter).intValue();
+        return listLetterToNum.get(letter);
     }
 
     public static String numToLetter(int letter) {
@@ -90,7 +90,7 @@ public class ControlGame {
     }
 
     public static int[] convertPosition(String position) {
-        return new int[]{Integer.valueOf(position.substring(1, 2)).intValue() - 1, letterToNum(position.substring(0, 1))};
+        return new int[]{Integer.parseInt(position.substring(1, 2)) - 1, letterToNum(position.substring(0, 1))};
     }
 
     public static void listPossibleMoves(Position[][] board, String pos) {
@@ -127,7 +127,13 @@ public class ControlGame {
             board[indexsOrigen[0]][indexsOrigen[1]].setPiece(null);
             flagOK = true;
         } else {
-            System.out.println("This moviment is invalid");
+            System.out.println("This movement is invalid");
+        }
+
+        if(promotion != null && promotion.equals("q") && board[indexsDestiny[0]][indexsDestiny[1]].getPiece().getValue() == 1 && indexsDestiny[0] == 7) {
+            Pawn prom = (Pawn) board[indexsDestiny[0]][indexsDestiny[1]].getPiece();
+            prom.promote(new Queen(prom.isWhite()));
+            board[indexsDestiny[0]][indexsDestiny[1]].setPiece(prom);
         }
 
         return new Object[]{board, flagOK};

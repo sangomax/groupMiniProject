@@ -50,6 +50,10 @@ public abstract class Piece {
 
 
     // Boolean -> isValidMove
+//    public boolean isValidMove(String position, )
+//
+
+
 
     // isValidMove
 

@@ -4,7 +4,7 @@ import chess.controller.Constants;
 
 import java.util.ArrayList;
 
-public class Bishop extends Piece{
+public class Bishop extends Piece {
 
     public Bishop(boolean isWhite) {
         super(Constants.BISHOP_VALUE, isWhite);
@@ -18,7 +18,7 @@ public class Bishop extends Piece{
 
     @Override
     public String toString() {
-        if(isWhite()) {
+        if (isWhite()) {
             return Constants.BISHOP_WHITE_PIECE + "\t";
         } else {
             return Constants.BISHOP_BLACK_PIECE + "\t";

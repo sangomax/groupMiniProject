@@ -101,16 +101,16 @@ public class ControlGame {
 
     public static void listAllPossibleMoves(Position[][] board, boolean isWhite) {
         ArrayList<String> allPossibleMoves = new ArrayList<>();
-        if (isWhite) {
-            for (Position[] row : board) {
-                for (Position col : row) {
-                    if (!col.isEmpty()) {
-                        if (col.getPiece().isWhite() == isWhite) {
-                            allPossibleMoves.addAll(col.getPiece().move(col.getCode(), board));
-                        }
+
+        for (Position[] row : board) {
+            for (Position col : row) {
+                if (!col.isEmpty()) {
+                    if (col.getPiece().isWhite() == isWhite) {
+                        allPossibleMoves.addAll(col.getPiece().move(col.getCode(), board));
                     }
                 }
             }
+
         }
         System.out.println(allPossibleMoves);
     }
@@ -127,10 +127,10 @@ public class ControlGame {
             board[indexsOrigen[0]][indexsOrigen[1]].setPiece(null);
             flagOK = true;
         } else {
-            System.out.println("This movement is invalid");
+            System.out.println(Constants.INVALID_MOVEMENT_MESSAGE);
         }
 
-        if(promotion != null && promotion.equals("q") && board[indexsDestiny[0]][indexsDestiny[1]].getPiece().getValue() == 1 && indexsDestiny[0] == 7) {
+        if (promotion != null && promotion.equals("q") && board[indexsDestiny[0]][indexsDestiny[1]].getPiece().getValue() == 1 && (indexsDestiny[0] == 7 || indexsDestiny[0] == 0)) {
             Pawn prom = (Pawn) board[indexsDestiny[0]][indexsDestiny[1]].getPiece();
             prom.promote(new Queen(prom.isWhite()));
             board[indexsDestiny[0]][indexsDestiny[1]].setPiece(prom);

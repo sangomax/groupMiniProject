@@ -4,7 +4,7 @@ import chess.controller.Constants;
 
 import java.util.ArrayList;
 
-public class King extends Piece{
+public class King extends Piece {
 
     public King(boolean isWhite) {
         super(Constants.KING_VALUE, isWhite);
@@ -18,7 +18,7 @@ public class King extends Piece{
 
     @Override
     public String toString() {
-        if(isWhite()) {
+        if (isWhite()) {
             return Constants.KING_WHITE_PIECE + "\t";
         } else {
             return Constants.KING_BLACK_PIECE + "\t";

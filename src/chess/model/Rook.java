@@ -2,7 +2,6 @@ package chess.model;
 
 import chess.controller.Constants;
 import chess.controller.ControlGame;
-
 import java.util.ArrayList;
 
 public class Rook extends Piece {
@@ -12,66 +11,76 @@ public class Rook extends Piece {
     }
 
     @Override
-    public ArrayList<String> move(String position, Position[][] borad) {
+    public ArrayList<String> move(String position, Position[][] board) {
         ArrayList<String> possibilities = new ArrayList<>();
-        String[] temp = {"a", "b", "c", "d", "e", "f", "g", "h"};
-        int index = 0;
-        for (int i = 0; i < 8; i++) {
-            if (temp[i].equals(position.substring(0, 1))) {
-                index = i;
-            }
+
+        int[] pos = {Integer.parseInt(position.substring(1, 2)) - 1, ControlGame.letterToNum(position.substring(0, 1))}; // e4 -> [3][4]   ,   a1 -> [0][0]
+        boolean myColor = board[pos[0]][pos[1]].getPiece().isWhite();   // Own piece color
+
+        for (int i = pos[0] ; i < 8; i++){                              // possibilities forward
+                if (!board[i][pos[1]].isEmpty()
+                        && board[i][pos[1]] != board[pos[0]][pos[1]]
+                        && board[i][pos[1]].getPiece().isWhite() == myColor){       //square is occupied by own color piece
+                    break;
+                }
+                if(!board[i][pos[1]].isEmpty() && board[i][pos[1]].getPiece().isWhite() != myColor){        //square is occupied by opponent piece
+                    possibilities.add(ControlGame.numToLetter(pos[1]) + (i + 1));
+                    break;
+                }
+                if(board[i][pos[1]] == board[pos[0]][pos[1]]){
+                    continue;
+                } else {
+                    possibilities.add((ControlGame.numToLetter(pos[1])) + (i + 1));
+                }
         }
-        String[] temp2 = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        int index2 = 0;
-        for (int i = 0; i < 8; i++) {
-            if (temp2[i].equals(position.substring(1, 2))) {
-                index2 = i;
+
+        for (int i = pos[0] ; i >= 0; i--){                             // possibilities backward
+            if (!board[i][pos[1]].isEmpty()
+                    && board[i][pos[1]] != board[pos[0]][pos[1]]
+                    && board[i][pos[1]].getPiece().isWhite() == myColor){
+                break;
+            }
+            if (!board[i][pos[1]].isEmpty() && board[i][pos[1]].getPiece().isWhite() != myColor){
+                possibilities.add(ControlGame.numToLetter(pos[1]) + (i + 1));
+                break;
+            }
+            if (board[i][pos[1]] == board[pos[0]][pos[1]]){
+                continue;
+            } else {
+                possibilities.add(ControlGame.numToLetter(pos[1]) + (i + 1));
             }
         }
 
-        if (isWhite()) {
-            if (position.substring(0, 1).equals(temp[index])) {
-                for (int i = 1; i < 8; i++) {
-                    possibilities.add(position.substring(0, 1) + i);
-                    if (borad[i][ControlGame.letterToNum(temp[index])] != borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(position.substring(0, 1))]
-                            && !borad[i][ControlGame.letterToNum(temp[index])].isEmpty()) {
-                        possibilities.remove(position);
-                        break;
-                    }
-                }
+        for (int i = pos[1]; i < 8; i++){                               // possibilities on right
+            if(!board[pos[0]][i].isEmpty()
+                    && board[pos[0]][i] != board[pos[0]][pos[1]]
+                    &&board[pos[0]][i].getPiece().isWhite() == myColor){
+                break;
             }
-            if (position.substring(1, 2).equals(temp2[index2])) {
-                for (int i = 0; i < 8; i++) {
-                    if (borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(temp[i])] != borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(position.substring(0, 1))]
-                            && !borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(temp[i])].isEmpty()) {
-                        possibilities.remove(position);
-                        break;
-                    }
-                    possibilities.add(temp[i] + position.substring(1, 2));
-                }
-            }
-        } else {
-            if (position.substring(0, 1).equals(temp[index])) {
 
-                for (int i = 7; i >= 0; i--) {
-                    if (borad[i][ControlGame.letterToNum(temp[index])] != borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(position.substring(0, 1))]
-                            && !borad[i][ControlGame.letterToNum(temp[index])].isEmpty()) {
-                        possibilities.remove(position);
-                        break;
-                    }
-                    possibilities.add(position.substring(0, 1) + (i + 1));
-                }
+            if(!board[pos[0]][i].isEmpty() && board[pos[0]][i].getPiece().isWhite() != myColor){
+                possibilities.add( ControlGame.numToLetter(i) + (pos[0] + 1) );
+                break;
             }
-            if (position.substring(1, 2).equals(temp2[index2])) {
-                for (int i = 0; i < 8; i++) {
-                    if (borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(temp[i])] != borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(position.substring(0, 1))]
-                            && !borad[Integer.valueOf(position.substring(1, 2)) - 1][ControlGame.letterToNum(temp[i])].isEmpty()) {
-                        possibilities.remove(position);
-                        break;
-                    }
-                    possibilities.add(temp[i] + position.substring(1, 2));
-                }
+            if(board[pos[0]][i] == board[pos[0]][pos[1]]){
+                continue;
+            } else{
+                possibilities.add( ControlGame.numToLetter(i) + (pos[0] + 1) );
             }
+        }
+
+        for (int i = pos[1] ; i >= 0 ; i--){                        // possibilities on left
+            if(!board[pos[0]][i].isEmpty()
+                    && board[pos[0]][i] != board[pos[0]][pos[1]]
+                    && board[pos[0]][i].getPiece().isWhite() == myColor){
+                break;
+            }
+
+            if(!board[pos[0]][i].isEmpty() && board[pos[0]][i].getPiece().isWhite() != myColor){
+                possibilities.add(ControlGame.numToLetter(i) + (pos[0] + 1));
+                break;
+            }
+            possibilities.add(ControlGame.numToLetter(i) + (pos[0] + 1));
         }
         possibilities.remove(position);
         return possibilities;

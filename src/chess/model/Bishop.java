@@ -22,7 +22,7 @@ public class Bishop extends Piece {
             while ( x < 8 && x > -1 && y > -1 && y < 8
                         && (borad[y][x].isEmpty()
                             || borad[y][x].getPiece().isWhite() != isWhite())) {
-                possibilities.add(ControlGame.numToLetter(indexLetter + i) + (y + 1));
+                possibilities.add(ControlGame.numToLetter(x) + (y + 1));
                 break;
             }
             if (!borad[y][x].isEmpty()){

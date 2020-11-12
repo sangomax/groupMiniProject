@@ -1,7 +1,7 @@
 package chess.model;
 
 import chess.controller.Constants;
-
+import chess.controller.Validation;
 import chess.controller.ControlGame;
 import java.util.ArrayList;
 
@@ -18,7 +18,9 @@ public class Bishop extends Piece {
         int indexNumber = Integer.valueOf(position.substring(1, 2)) - 1;
 
         for (int i = 1; i < 8; i++) {
-            while ( i < 3) {
+            int x = indexLetter + i;
+            int y = indexNumber + i;
+            while (x < 8 && x > -1 && y > -1 && y < 8) {
                 if (!borad[indexNumber + 1][indexLetter + 1].isEmpty()
                     && borad[indexNumber + 1][indexLetter + 1].getPiece().isWhite() == isWhite()){
                     break;

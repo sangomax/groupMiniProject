@@ -20,12 +20,12 @@ public class Bishop extends Piece {
             int x = indexLetter + i;
             int y = indexNumber + i;
             while ( x < 8 && x > -1 && y > -1 && y < 8
-                    && (borad[indexNumber + i][indexLetter + i].isEmpty()
-                         || borad[indexNumber + i][indexLetter + i].getPiece().isWhite() != isWhite())) {
-                possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i + 1));
+                        && (borad[y][x].isEmpty()
+                            || borad[y][x].getPiece().isWhite() != isWhite())) {
+                possibilities.add(ControlGame.numToLetter(indexLetter + i) + (y + 1));
                 break;
             }
-            if (borad[indexNumber + i][indexLetter + i].getPiece().isWhite() != isWhite()) {
+            if (!borad[y][x].isEmpty()){
                 break;
             }
         }

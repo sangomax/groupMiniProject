@@ -1,7 +1,6 @@
 package chess.model;
 
 import chess.controller.Constants;
-import chess.controller.Validation;
 import chess.controller.ControlGame;
 import java.util.ArrayList;
 
@@ -24,10 +23,14 @@ public class Bishop extends Piece {
                 if (!borad[indexNumber + 1][indexLetter + 1].isEmpty()
                     && borad[indexNumber + 1][indexLetter + 1].getPiece().isWhite() == isWhite()){
                     break;
-                } else if (borad[indexNumber + i][indexLetter + i].isEmpty()) {
-                    possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i + 1));
+                } else {
+                    if (borad[indexNumber + i][indexLetter + i].isEmpty()) {
+                        possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i + 1));
+                    } else if (borad[indexNumber + i][indexLetter + i].getPiece().isWhite() != isWhite()) {
+                        possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i + 1));
+                    }
                 }
-            break;
+                break;
             }
         }
 
@@ -40,11 +43,12 @@ public class Bishop extends Piece {
                     break;
                 } else {
                     if (borad[indexNumber + i][indexLetter - i].isEmpty()) {
-                        possibilities
-                            .add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i + 1));
+                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i + 1));
+                    } else if (borad[indexNumber + i][indexLetter - i].getPiece().isWhite() != isWhite()) {
+                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i + 1));
                     }
-                    break;
                 }
+                break;
             }
         }
 
@@ -58,9 +62,11 @@ public class Bishop extends Piece {
                 } else {
                     if (borad[indexNumber - i][indexLetter + i].isEmpty()) {
                         possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber - i + 1));
+                    } else if (borad[indexNumber - i][indexLetter + i].getPiece().isWhite() != isWhite()){
+                        possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber - i + 1));
                     }
-                    break;
                 }
+                break;
             }
         }
 
@@ -74,13 +80,14 @@ public class Bishop extends Piece {
                 } else {
                     if (borad[indexNumber - i][indexLetter - i].isEmpty()) {
                         possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber - i + 1));
+                    } else if (borad[indexNumber - i][indexLetter - i].getPiece().isWhite() != isWhite()){
+                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber - i + 1));
                     }
-                    break;
                 }
+                break;
             }
         }
         return possibilities;
-
     }
 
     @Override
@@ -91,10 +98,4 @@ public class Bishop extends Piece {
             return Constants.BISHOP_BLACK_PIECE + "\t";
         }
     }
-
-    // Boolean -> isValid method(current position, new position)
-
-
-    //  Method to return possible position of the selected piece
-    //-> isValidMove
 }

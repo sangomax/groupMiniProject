@@ -30,7 +30,25 @@ public class Bishop extends Piece {
             break;
             }
         }
+
+        for (int i = 1; i < 8; i++) {
+            int x = indexLetter - i;
+            int y = indexNumber + i;
+            while (x < 8 && x > -1 && y > -1 && y < 8) {
+                if (!borad[indexNumber + 1][indexLetter - 1].isEmpty()
+                    && borad[indexNumber + 1][indexLetter - 1].getPiece().isWhite() == isWhite()) {
+                    break;
+                } else {
+                    if (borad[indexNumber + i][indexLetter - i].isEmpty()) {
+                        possibilities
+                            .add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i + 1));
+                    }
+                    break;
+                }
+            }
+        }
         return possibilities;
+
     }
 
     @Override

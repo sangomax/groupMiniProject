@@ -18,12 +18,14 @@ public class Bishop extends Piece {
         int indexNumber = Integer.valueOf(position.substring(1, 2)) - 1;
 
         for (int i = 1; i < 8; i++) {
-            if (indexLetter + i < 8)
-                if (indexNumber + i < 8) {
-                    if (borad[indexNumber + i][indexLetter + i].isEmpty()
-                        || (borad[indexNumber + i][indexLetter + i].getPiece().isWhite() != isWhite())) {
-                possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i));
+            while ( i < 3) {
+                if (!borad[indexNumber + 1][indexLetter + 1].isEmpty()
+                    && borad[indexNumber + 1][indexLetter + 1].getPiece().isWhite() == isWhite()){
+                    break;
+                } else if (borad[indexNumber + i][indexLetter + i].isEmpty()) {
+                    possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber + i + 1));
                 }
+            break;
             }
         }
         return possibilities;

@@ -109,4 +109,6 @@ public class Constants {
     public static final String TYPE_UCI_HELP_MESSAGE = "* type UCI (e.g. b1c3, e7e8q) to make a move";
     public static final String WHITE_WON_RESIGN_MESSAGE = "Game Over - 1-0 - White won by resignation";
     public static final String BLACK_WON_RESIGN_MESSAGE = "Game Over - 1-0 - Black won by resignation";
+    public static final String INVALID_INPUT_MESSAGE = "This input is invalid";
+    public static final String INVALID_MOVEMENT_MESSAGE = "This movement is invalid";
 }

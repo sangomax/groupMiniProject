@@ -2,11 +2,9 @@ package chess.model;
 
 import chess.controller.Constants;
 import chess.controller.ControlGame;
-
-
 import java.util.ArrayList;
 
-public class Rook extends Piece{
+public class Rook extends Piece {
 
     public Rook(boolean isWhite) {
         super(Constants.ROOK_VALUE, isWhite);
@@ -59,6 +57,7 @@ public class Rook extends Piece{
                     &&board[pos[0]][i].getPiece().isWhite() == myColor){
                 break;
             }
+
             if(!board[pos[0]][i].isEmpty() && board[pos[0]][i].getPiece().isWhite() != myColor){
                 possibilities.add( ControlGame.numToLetter(i) + (pos[0] + 1) );
                 break;
@@ -76,6 +75,7 @@ public class Rook extends Piece{
                     && board[pos[0]][i].getPiece().isWhite() == myColor){
                 break;
             }
+
             if(!board[pos[0]][i].isEmpty() && board[pos[0]][i].getPiece().isWhite() != myColor){
                 possibilities.add(ControlGame.numToLetter(i) + (pos[0] + 1));
                 break;
@@ -88,7 +88,7 @@ public class Rook extends Piece{
 
     @Override
     public String toString() {
-        if(isWhite()) {
+        if (isWhite()) {
             return Constants.ROOK_WHITE_PIECE + "\t";
         } else {
             return Constants.ROOK_BLACK_PIECE + "\t";

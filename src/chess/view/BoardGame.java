@@ -1,9 +1,6 @@
 package chess.view;
 
-import chess.controller.Constants;
-import chess.model.*;
-
-import java.util.ArrayList;
+import chess.model.Position;
 
 public class BoardGame {
 
@@ -14,7 +11,7 @@ public class BoardGame {
             for (int col = 0; col < arrayToDraw[row].length; col++) {
                 System.out.print(arrayToDraw[row][col].toString());
             }
-            System.out.println(" " + (row + 1) );
+            System.out.println(" " + (row + 1));
         }
         System.out.println();
         System.out.println("a\tb\tc\td\te\tf\tg\th");

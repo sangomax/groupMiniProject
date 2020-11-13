@@ -19,13 +19,15 @@ public class Bishop extends Piece {
         for (int i = 1; i < 8; i++) {
             int x = indexLetter + i;
             int y = indexNumber + i;
-            while ( x < 8 && x > -1 && y > -1 && y < 8
+            while (x < 8 && x > - 1 && y > - 1 && y < 8
                         && (borad[y][x].isEmpty()
                             || borad[y][x].getPiece().isWhite() != isWhite())) {
                 possibilities.add(ControlGame.numToLetter(x) + (y + 1));
                 break;
             }
-            if (!borad[y][x].isEmpty()){
+            if (x + 1 > 7
+                    || y + 1 > 7
+                        || !borad[y][x].isEmpty()){
                 break;
             }
         }
@@ -33,17 +35,15 @@ public class Bishop extends Piece {
         for (int i = 1; i < 8; i++) {
             int x = indexLetter - i;
             int y = indexNumber + i;
-            while (x < 8 && x > -1 && y > -1 && y < 8) {
-                if (!borad[indexNumber + 1][indexLetter - 1].isEmpty()
-                    && borad[indexNumber + 1][indexLetter - 1].getPiece().isWhite() == isWhite()) {
-                    break;
-                } else {
-                    if (borad[indexNumber + i][indexLetter - i].isEmpty()) {
-                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i + 1));
-                    } else if (borad[indexNumber + i][indexLetter - i].getPiece().isWhite() != isWhite()) {
-                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber + i + 1));
-                    }
-                }
+            while (x < 8 && x > - 1 && y > - 1 && y < 8
+                        && (borad[y][x].isEmpty()
+                            || borad[y][x].getPiece().isWhite() != isWhite())) {
+                possibilities.add(ControlGame.numToLetter(x) + (y + 1));
+                break;
+            }
+            if (x - 1 < 0
+                    || y + 1 > 7
+                        || !borad[y][x].isEmpty()){
                 break;
             }
         }
@@ -51,17 +51,15 @@ public class Bishop extends Piece {
         for (int i = 1; i < 8; i++) {
             int x = indexLetter + i;
             int y = indexNumber - i;
-            while (x < 8 && x > -1 && y > -1 && y < 8) {
-                if (!borad[indexNumber - 1][indexLetter + 1].isEmpty()
-                    && borad[indexNumber - 1][indexLetter + 1].getPiece().isWhite() == isWhite()) {
-                    break;
-                } else {
-                    if (borad[indexNumber - i][indexLetter + i].isEmpty()) {
-                        possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber - i + 1));
-                    } else if (borad[indexNumber - i][indexLetter + i].getPiece().isWhite() != isWhite()){
-                        possibilities.add(ControlGame.numToLetter(indexLetter + i) + (indexNumber - i + 1));
-                    }
-                }
+            while (x < 8 && x > - 1 && y > - 1 && y < 8
+                        && (borad[y][x].isEmpty()
+                            || borad[y][x].getPiece().isWhite() != isWhite())) {
+                possibilities.add(ControlGame.numToLetter(x) + (y + 1));
+                break;
+            }
+            if (x + 1 > 7
+                    || y - 1 < 0
+                        || (!borad[y][x].isEmpty())){
                 break;
             }
         }
@@ -69,20 +67,19 @@ public class Bishop extends Piece {
         for (int i = 1; i < 8; i++) {
             int x = indexLetter - i;
             int y = indexNumber - i;
-            while (x < 8 && x > -1 && y > -1 && y < 8) {
-                if (!borad[indexNumber - 1][indexLetter - 1].isEmpty()
-                    && borad[indexNumber - 1][indexLetter - 1].getPiece().isWhite() == isWhite()) {
-                    break;
-                } else {
-                    if (borad[indexNumber - i][indexLetter - i].isEmpty()) {
-                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber - i + 1));
-                    } else if (borad[indexNumber - i][indexLetter - i].getPiece().isWhite() != isWhite()){
-                        possibilities.add(ControlGame.numToLetter(indexLetter - i) + (indexNumber - i + 1));
-                    }
-                }
+            while (x < 8 && x > - 1 && y > - 1 && y < 8
+                        && (borad[y][x].isEmpty()
+                            || borad[y][x].getPiece().isWhite() != isWhite())) {
+                possibilities.add(ControlGame.numToLetter(x) + (y + 1));
+                break;
+            }
+            if (x - 1 < 0
+                    || y - 1 < 0
+                        || !borad[y][x].isEmpty()){
                 break;
             }
         }
+
         return possibilities;
     }
 

@@ -12,8 +12,14 @@ public class Queen extends Piece {
 
     @Override
     public ArrayList<String> move(String position, Position[][] borad) {
-        System.out.println("Like bishop and rook");
-        return new ArrayList<>();
+        ArrayList<String> possibilities = new ArrayList<>();
+        Piece tempRook = new Rook(isWhite());
+        Piece tempBishop = new Bishop(isWhite());
+
+        possibilities.addAll(tempRook.move(position,borad));
+        possibilities.addAll(tempBishop.move(position,borad));
+
+        return possibilities;
     }
 
     @Override

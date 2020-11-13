@@ -99,7 +99,7 @@ public class ControlGame {
         System.out.println(board[indexsOrigen[0]][indexsOrigen[1]].getPiece().move(pos, board));
     }
 
-    public static void listAllPossibleMoves(Position[][] board, boolean isWhite) {
+    public static ArrayList<String> listAllPossibleMoves(Position[][] board, boolean isWhite) {
         ArrayList<String> allPossibleMoves = new ArrayList<>();
 
         for (Position[] row : board) {
@@ -112,7 +112,7 @@ public class ControlGame {
             }
 
         }
-        System.out.println(allPossibleMoves);
+        return allPossibleMoves;
     }
 
     public static Object[] move(Position[][] board, String origen, String destiny, String promotion) {

@@ -28,7 +28,7 @@ public class Driver {
                     flagEndGame = true;
                     break;
                 case "move":
-                    ControlGame.listAllPossibleMoves(board, isWhiteTurn);
+                    System.out.println(ControlGame.listAllPossibleMoves(board, isWhiteTurn));
                     continue;
                 default:
                     if (Validation.isValidInput(userInput, isWhiteTurn, board)) {

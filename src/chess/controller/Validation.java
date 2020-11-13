@@ -2,6 +2,8 @@ package chess.controller;
 
 import chess.model.Position;
 
+import java.util.ArrayList;
+
 public class Validation {
 
     public static boolean isValidInput(String userInput, boolean isWhiteTurn, Position[][] board) {
@@ -86,24 +88,72 @@ public class Validation {
         return false;
     }
 
-//    public static boolean isValidMove(Position origen, Position destiny) {
-//        try {
-//            switch (origen.getPiece().getValue()) {
-//
-//                case Constants.PAWN_VALUE:
-//                    if (!origen.getCode().substring(0, 1).equals(destiny.getCode().substring(0, 1))) {
-//                        char letter = origen.getCode().substring(0, 1).toCharArray()[0];
-//                        if (destiny.isEmpty()) {
-//                            throw new IllegalArgumentException("This moviment is invalid");
-//                        }
-//                    }
-//
-//            }
-//        } catch (IllegalArgumentException e) {
-//            System.out.println(e.getLocalizedMessage());
-//            return false;
-//        }
-//        return true;
-//    }
+
+    /** check by board
+     * Check if one's pieces possibilities contain opponent's king location
+     * @param isWhiteTurn
+     * @return true if checkmate, false if not
+     */
+
+    public static boolean isCheckMate(Position[][] board, boolean isWhiteTurn){
+        String str;
+        int[] boardPos;
+        int size = ControlGame.listAllPossibleMoves(board, isWhiteTurn).size();     // check num of all the possible moves
+        if (isWhiteTurn) {
+                for (int i = 0; i < size; i++) {
+                    str = ControlGame.listAllPossibleMoves(board, true).get(i);      // string pos ex. a4 or null
+                    boardPos = new int[]{Integer.parseInt(str.substring(1, 2)) - 1, ControlGame.letterToNum(str.substring(0, 1))};// a4 -> [3][0]
+
+                    if (board[boardPos[0]][boardPos[1]].isEmpty()){
+                        continue;
+                    } else if (board[boardPos[0]][boardPos[1]].getPiece().getValue() == Constants.KING_VALUE
+                            && !board[boardPos[0]][boardPos[1]].getPiece().isWhite()) {           // check if the square's piece is opponents' & is king value
+                        System.out.println("Checkmate");
+                        return true;
+                    } else {
+                        continue;
+                    }
+                }
+                return false;
+        } else  {
+                for (int i = 0; i < (ControlGame.listAllPossibleMoves(board, false).size()); i++) {
+                    str = ControlGame.listAllPossibleMoves(board, false).get(i);      // string pos ex. a4
+                    boardPos = new int[]{Integer.parseInt(str.substring(1, 2)) - 1, ControlGame.letterToNum(str.substring(0, 1))};                             // a4 -> [3][0]
+
+                    if(board[boardPos[0]][boardPos[1]].isEmpty()){
+                        continue;
+                    } else if (board[boardPos[0]][boardPos[1]].getPiece().getValue() == Constants.KING_VALUE
+                            && board[boardPos[0]][boardPos[1]].getPiece().isWhite()) {           // check if the square's piece is opponents' & is king value
+                        System.out.println("Checkmate");
+                        return true;                                        // possibilities include opponent's king, and is checkmate
+                    } else {
+                        continue;
+                    }
+                }
+              return false;
+        }
+    }
+
+
+
+    public static boolean isValidMove(Position origen, Position destiny) {
+        try {
+            switch (origen.getPiece().getValue()) {
+
+                case Constants.PAWN_VALUE:
+                    if (!origen.getCode().substring(0, 1).equals(destiny.getCode().substring(0, 1))) {
+                        char letter = origen.getCode().substring(0, 1).toCharArray()[0];
+                        if (destiny.isEmpty()) {
+                            throw new IllegalArgumentException("This moviment is invalid");
+                        }
+                    }
+
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getLocalizedMessage());
+            return false;
+        }
+        return true;
+    }
 
 }

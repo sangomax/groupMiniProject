@@ -4,6 +4,8 @@ import chess.model.Position;
 import chess.view.BoardGame;
 import chess.view.Messages;
 
+import java.util.ArrayList;
+
 public class Driver {
 
     public static void main(String[] args) {
@@ -43,6 +45,8 @@ public class Driver {
                             }
                             board = (Position[][]) o[0];
                             BoardGame.drawBoard(board);
+                            System.out.println(Validation.isCheckMate(board,isWhiteTurn)); // return true if checkmate
+
                         }
                     } else {
                         continue;

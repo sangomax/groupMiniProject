@@ -110,10 +110,10 @@ public class ControlGame {
                     }
                 }
             }
-
         }
         return allPossibleMoves;
     }
+
 
     public static Object[] move(Position[][] board, String origen, String destiny, String promotion) {
         int[] indexsOrigen = convertPosition(origen);

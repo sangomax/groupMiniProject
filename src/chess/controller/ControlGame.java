@@ -4,6 +4,7 @@ import chess.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class ControlGame {
 
@@ -95,49 +96,113 @@ public class ControlGame {
 
     public static void listPossibleMoves(Position[][] board, String pos) {
         int[] indexsOrigen = convertPosition(pos);
-
-        System.out.println(board[indexsOrigen[0]][indexsOrigen[1]].getPiece().move(pos, board));
+        Piece piece = board[indexsOrigen[0]][indexsOrigen[1]].getPiece();
+        System.out.println(removeMovesCheck(piece.move(pos, board), indexsOrigen, board, piece.isWhite()));
     }
 
-    public static ArrayList<String> listAllPossibleMoves(Position[][] board, boolean isWhite) {
+    public static HashMap<String, ArrayList<String>> listAllPossibleMoves(Position[][] board, boolean isWhite) {
         ArrayList<String> allPossibleMoves = new ArrayList<>();
+        HashMap<String, ArrayList<String>> allOriginWithMove = new HashMap<>();
 
         for (Position[] row : board) {
             for (Position col : row) {
                 if (!col.isEmpty()) {
                     if (col.getPiece().isWhite() == isWhite) {
-                        allPossibleMoves.addAll(col.getPiece().move(col.getCode(), board));
+                        ArrayList<String> possibleMove = col.getPiece().move(col.getCode(), board);
+                        if (possibleMove.size() > 0) {
+                            allOriginWithMove.put(col.getCode(), possibleMove);
+                        }
                     }
                 }
             }
         }
-        return allPossibleMoves;
+
+        return allOriginWithMove;
     }
 
+    public static String findKing(Position[][] board, boolean isWhite) {
+        for (Position[] row : board) {
+            for (Position col : row) {
+                if (!col.isEmpty() && col.getPiece().getClass().equals(King.class) && col.getPiece().isWhite() == isWhite) {
+                    return col.getCode();
+                }
+            }
+        }
+        return null;
+    }
 
-    public static Object[] move(Position[][] board, String origen, String destiny, String promotion) {
-        int[] indexsOrigen = convertPosition(origen);
-        int[] indexsDestiny = convertPosition(destiny);
+    public static Object[] move(Position[][] board, String origin, String destiny, String promotion) {
+        int[] indexOrigin = convertPosition(origin);
+        int[] indexDestiny = convertPosition(destiny);
         boolean flagOK = false;
 
-        ArrayList<String> possibleMoves = board[indexsOrigen[0]][indexsOrigen[1]].getPiece().move(origen, board);
+        ArrayList<String> possibleMoves = board[indexOrigin[0]][indexOrigin[1]].getPiece().move(origin, board);
+
+        possibleMoves = removeMovesCheck(possibleMoves, indexOrigin, board, board[indexOrigin[0]][indexOrigin[1]].getPiece().isWhite());
 
         if (possibleMoves.contains(destiny)) {
-            board[indexsDestiny[0]][indexsDestiny[1]].setPiece(board[indexsOrigen[0]][indexsOrigen[1]].getPiece());
-            board[indexsOrigen[0]][indexsOrigen[1]].setPiece(null);
+            board = changeBoard(indexOrigin, indexDestiny, board);
             flagOK = true;
         } else {
             System.out.println(Constants.INVALID_MOVEMENT_MESSAGE);
         }
 
-        if (promotion != null && promotion.equals("q") && board[indexsDestiny[0]][indexsDestiny[1]].getPiece().getValue() == 1 && (indexsDestiny[0] == 7 || indexsDestiny[0] == 0)) {
-            Pawn prom = (Pawn) board[indexsDestiny[0]][indexsDestiny[1]].getPiece();
-            prom.promote(new Queen(prom.isWhite()));
-            board[indexsDestiny[0]][indexsDestiny[1]].setPiece(prom);
+        if (promotion != null && (promotion.equals("q") || promotion.equals("n") ||
+                promotion.equals("b") && promotion.equals("r")) &&
+                board[indexDestiny[0]][indexDestiny[1]].getPiece().getValue() == 1 &&
+                (indexDestiny[0] == 7 || indexDestiny[0] == 0)) {
+
+            Pawn prom = (Pawn) board[indexDestiny[0]][indexDestiny[1]].getPiece();
+            switch (promotion) {
+                case "r":
+                    prom.promote(new Rook(prom.isWhite()));
+                    break;
+                case "b":
+                    prom.promote(new Bishop(prom.isWhite()));
+                    break;
+                case "n":
+                    prom.promote(new Knight(prom.isWhite()));
+                    break;
+                case "q":
+                    prom.promote(new Queen(prom.isWhite()));
+                    break;
+            }
+            board[indexDestiny[0]][indexDestiny[1]].setPiece(prom);
         }
 
         return new Object[]{board, flagOK};
     }
-    // Generic method: return possible position of the selected piece
+
+    public static Position[][] changeBoard(int[] indexsOrigen, int[] indexsDestiny, Position[][] board) {
+        board[indexsDestiny[0]][indexsDestiny[1]].setPiece(board[indexsOrigen[0]][indexsOrigen[1]].getPiece());
+        board[indexsOrigen[0]][indexsOrigen[1]].setPiece(null);
+        return board;
+    }
+
+    public static ArrayList<String> cleanMovesCheck
+            (HashMap<String, ArrayList<String>> allOriginWithMove, Position[][] board, boolean isWhite) {
+        Set<String> origins = allOriginWithMove.keySet();
+        ArrayList<String> allPossibleMoves = new ArrayList<>();
+        for (String origin : origins) {
+            ArrayList<String> temp = removeMovesCheck(allOriginWithMove.get(origin), convertPosition(origin), board, isWhite);
+            allPossibleMoves.addAll(temp);
+        }
+        return allPossibleMoves;
+    }
+
+    public static ArrayList<String> removeMovesCheck(ArrayList<String> possibleMoves,
+                                                     int[] indexOrigin, Position[][] board, boolean isWhite) {
+
+        ArrayList<String> moveToRemove = new ArrayList<>();
+        for (String move : possibleMoves) {
+            if (Validation.isKeepCheck(indexOrigin, convertPosition(move), board, isWhite)) {
+                moveToRemove.add(move);
+            }
+        }
+
+        possibleMoves.removeAll(moveToRemove);
+
+        return possibleMoves;
+    }
 
 }

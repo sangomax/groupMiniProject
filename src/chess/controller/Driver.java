@@ -13,6 +13,7 @@ public class Driver {
         BoardGame.drawBoard(board);
         boolean flagEndGame = false;
         boolean isWhiteTurn = true;
+        boolean isCheck = false;
         do {
 
             Messages.messagePlayerTurn(isWhiteTurn);
@@ -30,7 +31,7 @@ public class Driver {
                     flagEndGame = true;
                     break;
                 case "move":
-                    System.out.println(ControlGame.listAllPossibleMoves(board, isWhiteTurn));
+                    System.out.println(ControlGame.cleanMovesCheck(ControlGame.listAllPossibleMoves(board, isWhiteTurn),board, isWhiteTurn));
                     continue;
                 default:
                     if (Validation.isValidInput(userInput, isWhiteTurn, board)) {
@@ -45,8 +46,20 @@ public class Driver {
                             }
                             board = (Position[][]) o[0];
                             BoardGame.drawBoard(board);
-                            System.out.println(Validation.isCheckMate(board,isWhiteTurn)); // return true if checkmate
-
+                            isCheck = Validation.isCheck(board,isWhiteTurn); // return true if checkmate
+                            if(isCheck) {
+                                String m = "Check";
+                                if(Validation.isCheckMate(board,isWhiteTurn)) {
+                                    flagEndGame = true;
+                                    m = "CheckMate";
+                                }
+                                System.out.println(m);
+                            } else {
+//                                if(Validation.isCheckMate(board,isWhiteTurn)) {
+//                                    flagEndGame = true;
+//                                    System.out.println("Draw Game");
+//                                }
+                            }
                         }
                     } else {
                         continue;

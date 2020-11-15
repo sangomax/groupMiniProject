@@ -102,7 +102,6 @@ public class Validation {
      * @param isWhiteTurn
      * @return true if checkmate, false if not
      */
-
     public static boolean isCheck(Position[][] board, boolean isWhiteTurn) {
         HashMap<String, ArrayList<String>> possiblesMoves = ControlGame.listAllPossibleMoves(board, isWhiteTurn);
         Set<String> origins = possiblesMoves.keySet();

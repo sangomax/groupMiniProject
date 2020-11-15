@@ -73,24 +73,6 @@ public class Pawn extends Piece {
         this.newPiece = newPiece;
     }
 
-    /**
-     * 最終的には、possibilitiesに候補をaddする　→　そこに移動した場合は、その後ろのpawnを取り除く。
-     * お互いのPawnが、4か5にいるときにしか発生し得ない
-     * その上で、隣がPawnかどうか確認する
-     * 移動するpossibilitiesは、斜め前
-     * 掴むピースは横のpawn
-     * 残像は、ポーンが２マス進んだ直後にだけ現れる。
-     */
-
-    /**
-     * 確認したい敵の箇所をEnPassantとしてGetできる可能性があるかどうか確認するboolean
-     * 任意のポジションを取得する→その場所は、敵のpawnがあることを想定
-     * tmpのポジションがnullでないことを確認
-     * pawnであること＆敵の色であることを確認
-     * 相手のpawnが移動した直後であること
-     * 残像は、ポーンが2マス進んだ直後にだけ現れる
-     * 白が4にいるときか、黒が5にいるときに起こる
-     * */
     private boolean canCaptureEnPassant(String position, Position[][] board) {
         int[] index = ControlGame.convertPosition(position);
         int x = index[1];

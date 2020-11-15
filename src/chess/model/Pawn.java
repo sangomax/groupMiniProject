@@ -74,8 +74,6 @@ public class Pawn extends Piece {
     }
 
     /**
-     * Adds moves in which the pawn captures "en passant" to the list of moves
-     * @param moves the list of moves
      * 最終的には、possibilitiesに候補をaddする　→　そこに移動した場合は、その後ろのpawnを取り除く。
      * お互いのPawnが、4か5にいるときにしか発生し得ない
      * その上で、隣がPawnかどうか確認する
@@ -83,53 +81,33 @@ public class Pawn extends Piece {
      * 掴むピースは横のpawn
      * 残像は、ポーンが２マス進んだ直後にだけ現れる。
      */
-    private void enPassant(String position, Position[][] borad) {
-        ArrayList<String> possibilities = new ArrayList<>();
-        int x = Integer.valueOf(ControlGame.letterToNum(position.substring(0, 1)));
-        int y = Integer.valueOf(position.substring(1, 2)) - 1;
-
-        int[] pos = {Integer.parseInt(position.substring(1, 2)) - 1, ControlGame.letterToNum(position.substring(0, 1))};
-        boolean myColor = borad[pos[0]][pos[1]].getPiece().isWhite();
-
-        if (this.isWhite() == myColor && position.substring(1, 2).equals("2")) {
-            if(canCaptureEnPassant(position.substring(1, 2), borad))
-                possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) + 1));
-                    borad[y][x - 1].getPiece();
-            if(canCaptureEnPassant(position.substring(1, 2), borad))
-                possibilities.add("a" + (Integer.valueOf(position.substring(1, 2)) + 1));
-                    borad[y][x + 1].getPiece();
-        } else if (this.isWhite() == myColor && position.substring(1, 2).equals("3")) {
-            if(canCaptureEnPassant(position.substring(1, 2), borad))
-                possibilities.add("c" + (Integer.valueOf(position.substring(1, 2)) + 1));
-                borad[y][x - 1].getPiece();
-            if(canCaptureEnPassant(position.substring(1, 2), borad))
-                possibilities.add("d" + (Integer.valueOf(position.substring(1, 2)) + 1));
-                borad[y][x + 1].getPiece();
-        }
-    }
 
     /**
-     * Checks if the pawn can capture another pawn by en passant
-     * @param pt location of the other pawn
-     * @return true if can be captured
      * 確認したい敵の箇所をEnPassantとしてGetできる可能性があるかどうか確認するboolean
      * 任意のポジションを取得する→その場所は、敵のpawnがあることを想定
      * tmpのポジションがnullでないことを確認
      * pawnであること＆敵の色であることを確認
      * 相手のpawnが移動した直後であること
      * 残像は、ポーンが2マス進んだ直後にだけ現れる
+     * 白が4にいるときか、黒が5にいるときに起こる
      * */
-    private boolean canCaptureEnPassant(String position, Position[][] borad) {
-        int x = Integer.valueOf(ControlGame.letterToNum(position.substring(0, 1)));
-        int y = Integer.valueOf(position.substring(1, 2)) - 1;
+    private boolean canCaptureEnPassant(String position, Position[][] board) {
+        int[] index = ControlGame.convertPosition(position);
+        int x = index[1];
+        int y = index[0];
 
-        int[] pos = {Integer.parseInt(position.substring(1, 2)) - 1, ControlGame.letterToNum(position.substring(0, 1))};
-        boolean myColor = borad[pos[0]][pos[1]].getPiece().isWhite();
-
-        Piece temp = borad[y][x].getPiece();
-        if (temp != null)
-            if (temp instanceof Pawn && temp.isWhite() != myColor)
+        if (!board[y][x + 1].isEmpty())
+            if (board[y + 1][x + 1].isEmpty()
+                    && board[y][x + 1].getPiece() instanceof Pawn
+                        && board[y][x + 1].getPiece().isWhite() != isWhite())
                 return true;
+
+        else if (!board[y][x - 1].isEmpty());
+            if (board[y - 1][x - 1].isEmpty()
+                    && board[y][x - 1].getPiece() instanceof Pawn
+                        && board[y][x - 1].getPiece().isWhite() != isWhite())
+                return true;
+
         return false;
     }
 
@@ -146,6 +124,16 @@ public class Pawn extends Piece {
                     if (board[indexNumber + 1][indexLetter].isEmpty() &&
                         board[indexNumber + 2][indexLetter].isEmpty()) {
                         possibilities.add(position.substring(0, 1) + 4);
+                    }
+                }
+                if (position.substring(1, 2).equals("5")) {
+                    if (canCaptureEnPassant(position, board)) {
+                        if (!board[indexNumber][indexLetter + 1].isEmpty()){
+                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber + 2));
+                        }
+                        if (!board[indexNumber][indexLetter - 1].isEmpty()){
+                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber + 2));
+                        }
                     }
                 }
                 if (!position.substring(1, 2).equals("8")) {
@@ -188,6 +176,16 @@ public class Pawn extends Piece {
                     if (board[indexNumber - 1][indexLetter].isEmpty() &&
                         board[indexNumber - 2][indexLetter].isEmpty()) {
                         possibilities.add(position.substring(0, 1) + 5);
+                    }
+                }
+                if (position.substring(1, 2).equals("4")) {
+                    if (canCaptureEnPassant(position, board)) {
+                        if (!board[indexNumber][indexLetter + 1].isEmpty()){
+                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber));
+                        }
+                        if (!board[indexNumber][indexLetter - 1].isEmpty()){
+                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber));
+                        }
                     }
                 }
                 if (!position.substring(1, 2).equals("1")) {

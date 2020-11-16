@@ -146,19 +146,19 @@ public class Pawn extends Piece {
                         possibilities.add(position.substring(0, 1) + 5);
                     }
                 }
+                if (position.substring(1, 2).equals("4")) {
+                    if (canCaptureEnPassant(position, board)) {
+                        if (indexLetter + 1 < 8 && !board[indexNumber][indexLetter + 1].isEmpty()){
+                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber));
+                        }
+                        if (indexLetter - 1 > - 1 && !board[indexNumber][indexLetter - 1].isEmpty()){
+                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber));
+                        }
+                    }
+                }
                 if (!position.substring(1, 2).equals("1")) {
                     if (board[indexNumber - 1][indexLetter].isEmpty()) {
                         possibilities.add(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
-                    }
-                    if (position.substring(1, 2).equals("4")) {
-                        if (canCaptureEnPassant(position, board)) {
-                            if (indexLetter + 1 < 8 && !board[indexNumber][indexLetter + 1].isEmpty()){
-                                possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber));
-                            }
-                            if (indexLetter - 1 > - 1 && !board[indexNumber][indexLetter - 1].isEmpty()){
-                                possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber));
-                            }
-                        }
                     }
                     if (position.substring(0, 1).equals("a") && !board[indexNumber - 1][ControlGame.letterToNum("b")].isEmpty() && (board[indexNumber - 1][ControlGame.letterToNum("b")].getPiece().isWhite() != isWhite())) {
                         possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) - 1));

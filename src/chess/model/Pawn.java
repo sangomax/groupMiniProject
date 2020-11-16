@@ -2,6 +2,7 @@ package chess.model;
 
 import chess.controller.Constants;
 import chess.controller.ControlGame;
+import chess.controller.Validation;
 
 import java.util.ArrayList;
 
@@ -25,16 +26,16 @@ public class Pawn extends Piece {
     public boolean equals(Object obj) {
         Pawn pawn = (Pawn) obj;
         return this.getValue() == pawn.getValue() &&
-            this.isWhite() == pawn.isWhite() &&
-            this.isPromoted() == pawn.isPromoted() &&
-            (
-                (this.isPromoted() == false &&
-                    (this.getNewPiece() == null && pawn.newPiece == null)
-                ) || (this.isPromoted() == true &&
-                    (this.getNewPiece() != null && pawn.newPiece != null) &&
-                    (this.getNewPiece().equals(pawn.newPiece))
-                )
-            );
+                this.isWhite() == pawn.isWhite() &&
+                this.isPromoted() == pawn.isPromoted() &&
+                (
+                        (this.isPromoted() == false &&
+                                (this.getNewPiece() == null && pawn.newPiece == null)
+                        ) || (this.isPromoted() == true &&
+                                (this.getNewPiece() != null && pawn.newPiece != null) &&
+                                (this.getNewPiece().equals(pawn.newPiece))
+                        )
+                );
     }
 
     @Override
@@ -73,26 +74,6 @@ public class Pawn extends Piece {
         this.newPiece = newPiece;
     }
 
-    private boolean canCaptureEnPassant(String position, Position[][] board) {
-        int[] index = ControlGame.convertPosition(position);
-        int x = index[1];
-        int y = index[0];
-
-        if (!board[y][x + 1].isEmpty())
-            if (board[y + 1][x + 1].isEmpty()
-                && board[y][x + 1].getPiece() instanceof Pawn
-                && board[y][x + 1].getPiece().isWhite() != isWhite())
-                return true;
-
-            else if (!board[y][x - 1].isEmpty());
-        if (board[y - 1][x - 1].isEmpty()
-            && board[y][x - 1].getPiece() instanceof Pawn
-            && board[y][x - 1].getPiece().isWhite() != isWhite())
-            return true;
-
-        return false;
-    }
-
     @Override
     public ArrayList<String> move(String position, Position[][] board) {
         ArrayList<String> possibilities = new ArrayList<>();
@@ -104,73 +85,77 @@ public class Pawn extends Piece {
             if (isWhite()) {
                 if (position.substring(1, 2).equals("2")) {
                     if (board[indexNumber + 1][indexLetter].isEmpty() &&
-                        board[indexNumber + 2][indexLetter].isEmpty()) {
-                        possibilities.add(position.substring(0, 1) + 4);
-                    }
-                }
-                if (position.substring(1, 2).equals("5")) {
-                    if (canCaptureEnPassant(position, board)) {
-                        if (!board[indexNumber][indexLetter + 1].isEmpty()){
-                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber + 2));
-                        }
-                        if (!board[indexNumber][indexLetter - 1].isEmpty()){
-                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber + 2));
+                            board[indexNumber + 2][indexLetter].isEmpty()) {
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition(position.substring(0, 1) + 4), board, isWhite())) {
+                            possibilities.add(position.substring(0, 1) + 4);
                         }
                     }
                 }
                 if (!position.substring(1, 2).equals("8")) {
                     if (board[indexNumber + 1][indexLetter].isEmpty()) {
-                        possibilities.add(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) + 1));
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) + 1)), board, isWhite())) {
+                            possibilities.add(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) + 1));
+                        }
                     }
+
                     if (position.substring(0, 1).equals("a") && !board[indexNumber + 1][ControlGame.letterToNum("b")].isEmpty() && (board[indexNumber + 1][ControlGame.letterToNum("b")].getPiece().isWhite() != isWhite())) {
-                        possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) + 1));
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition("b" + (Integer.valueOf(position.substring(1, 2)) + 1)), board, isWhite())) {
+                            possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) + 1));
+                        }
 
                     } else if (position.substring(0, 1).equals("h") && !board[indexNumber + 1][ControlGame.letterToNum("g")].isEmpty() && (board[indexNumber + 1][ControlGame.letterToNum("g")].getPiece().isWhite() != isWhite())) {
-                        possibilities.add("g" + (Integer.valueOf(position.substring(1, 2)) + 1));
-
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition("g" + (Integer.valueOf(position.substring(1, 2)) + 1)), board, isWhite())) {
+                            possibilities.add("g" + (Integer.valueOf(position.substring(1, 2)) + 1));
+                        }
                     } else if (!position.substring(0, 1).equals("h") && !position.substring(0, 1).equals("a")) {
 
                         if (!board[indexNumber + 1][indexLetter + 1].isEmpty() && (board[indexNumber + 1][indexLetter + 1].getPiece().isWhite() != isWhite())) {
-                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (Integer.valueOf(position.substring(1, 2)) + 1));
+                            if (!Validation.isKeepCheck(index, ControlGame.convertPosition(ControlGame.numToLetter(indexLetter + 1) + (Integer.valueOf(position.substring(1, 2)) + 1)), board, isWhite())) {
+                                possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (Integer.valueOf(position.substring(1, 2)) + 1));
+                            }
                         }
                         if (!board[indexNumber + 1][indexLetter - 1].isEmpty() && (board[indexNumber + 1][indexLetter - 1].getPiece().isWhite() != isWhite())) {
-                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (Integer.valueOf(position.substring(1, 2)) + 1));
+                            if (!Validation.isKeepCheck(index, ControlGame.convertPosition(ControlGame.numToLetter(indexLetter - 1) + (Integer.valueOf(position.substring(1, 2)) + 1)), board, isWhite())) {
+                                possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (Integer.valueOf(position.substring(1, 2)) + 1));
+                            }
                         }
                     }
                 }
             } else {
                 if (position.substring(1, 2).equals("7")) {
                     if (board[indexNumber - 1][indexLetter].isEmpty() &&
-                        board[indexNumber - 2][indexLetter].isEmpty()) {
-                        possibilities.add(position.substring(0, 1) + 5);
-                    }
-                }
-                if (position.substring(1, 2).equals("4")) {
-                    if (canCaptureEnPassant(position, board)) {
-                        if (!board[indexNumber][indexLetter + 1].isEmpty()){
-                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber));
-                        }
-                        if (!board[indexNumber][indexLetter - 1].isEmpty()){
-                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber));
+                            board[indexNumber - 2][indexLetter].isEmpty()) {
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition(position.substring(0, 1) + 5), board, isWhite())) {
+                            possibilities.add(position.substring(0, 1) + 5);
                         }
                     }
                 }
                 if (!position.substring(1, 2).equals("1")) {
                     if (board[indexNumber - 1][indexLetter].isEmpty()) {
-                        possibilities.add(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) - 1)), board, isWhite())) {
+                            possibilities.add(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                        }
                     }
                     if (position.substring(0, 1).equals("a") && !board[indexNumber - 1][ControlGame.letterToNum("b")].isEmpty() && (board[indexNumber - 1][ControlGame.letterToNum("b")].getPiece().isWhite() != isWhite())) {
-                        possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) - 1));
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition("b" + (Integer.valueOf(position.substring(1, 2)) - 1)), board, isWhite())) {
+                            possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) - 1));
+                        }
 
                     } else if (position.substring(0, 1).equals("h") && !board[indexNumber - 1][ControlGame.letterToNum("g")].isEmpty() && (board[indexNumber - 1][ControlGame.letterToNum("g")].getPiece().isWhite() != isWhite())) {
-                        possibilities.add("g" + (Integer.valueOf(position.substring(1, 2)) - 1));
+                        if (!Validation.isKeepCheck(index, ControlGame.convertPosition("g" + (Integer.valueOf(position.substring(1, 2)) - 1)), board, isWhite())) {
+                            possibilities.add("g" + (Integer.valueOf(position.substring(1, 2)) - 1));
+                        }
 
                     } else if (!position.substring(0, 1).equals("h") && !position.substring(0, 1).equals("a")) {
                         if (!board[indexNumber - 1][indexLetter + 1].isEmpty() && (board[indexNumber - 1][indexLetter + 1].getPiece().isWhite() != isWhite())) {
-                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                            if (!Validation.isKeepCheck(index, ControlGame.convertPosition(ControlGame.numToLetter(indexLetter + 1) + (Integer.valueOf(position.substring(1, 2)) - 1)), board, isWhite())) {
+                                possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                            }
                         }
                         if (!board[indexNumber - 1][indexLetter - 1].isEmpty() && (board[indexNumber - 1][indexLetter - 1].getPiece().isWhite() != isWhite())) {
-                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                            if (!Validation.isKeepCheck(index, ControlGame.convertPosition(ControlGame.numToLetter(indexLetter - 1) + (Integer.valueOf(position.substring(1, 2)) - 1)), board, isWhite())) {
+                                possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                            }
                         }
                     }
                 }

@@ -27,17 +27,6 @@ public class Validation {
                             System.out.println(Constants.INVALID_INPUT_MESSAGE);
                             return false;
                         }
-                        //
-                        if (isWhiteTurn && !ControlGame.listAllPossibleMoves(board, true).containsKey(userInput)){
-                            System.out.println(Constants.TYPE_MOVES_HELP_MESSAGE);
-                            return false;
-                        }
-                        if (!isWhiteTurn && !ControlGame.listAllPossibleMoves(board,false).containsKey(userInput)){
-                            System.out.println(Constants.TYPE_MOVES_HELP_MESSAGE);
-                            return false;
-                        }
-
-                        //
                     }
                 }
             } else if (userInput.length() == 4) {

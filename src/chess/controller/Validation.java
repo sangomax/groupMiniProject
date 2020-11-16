@@ -138,6 +138,23 @@ public class Validation {
         return false;
     }
 
+    // if not in check, but no pieces can be moved
+    public static boolean isStaleMate(Position[][] board, boolean isWhiteTurn){
+        if(isWhiteTurn) {
+            if(ControlGame.listAllPossibleMoves(board,true).size() == 0){
+                return true;
+            }
+        } else {
+            if(ControlGame.listAllPossibleMoves(board,false).size() == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
     public static boolean isCheckMate(Position[][] board, boolean isWhiteTurn) {
         for (Position[] row : board) {
             for (Position col : row) {

@@ -16,8 +16,8 @@ public class Queen extends Piece {
         Piece tempRook = new Rook(isWhite());
         Piece tempBishop = new Bishop(isWhite());
 
-        possibilities.addAll(tempRook.move(position,borad));
-        possibilities.addAll(tempBishop.move(position,borad));
+        possibilities.addAll(tempRook.move(position, borad));
+        possibilities.addAll(tempBishop.move(position, borad));
 
         return possibilities;
     }

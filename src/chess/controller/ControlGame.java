@@ -99,7 +99,13 @@ public class ControlGame {
     public static void listPossibleMoves(Position[][] board, String pos) {
         int[] indexOrigin = convertPosition(pos);
         Piece piece = board[indexOrigin[0]][indexOrigin[1]].getPiece();
-        System.out.println(removeMovesCheck(piece.move(pos, board), indexOrigin, board, piece.isWhite()));
+        ArrayList<String> listMoves = removeMovesCheck(piece.move(pos, board), indexOrigin, board, piece.isWhite());
+        if (listMoves.size() > 0) {
+            System.out.println(Constants.POSSIBLE_MOVE_MESSAGE + " " + pos);
+            System.out.println(listMoves);
+        } else {
+            System.out.println(Constants.NO_POSSIBLE_MOVE_MESSAGE + " " + pos);
+        }
     }
 
     public static HashMap<String, ArrayList<String>> listAllPossibleMoves(Position[][] board, boolean isWhite) {
@@ -132,7 +138,7 @@ public class ControlGame {
         return null;
     }
 
-    public  static void setCastling(String origin, String destination, Position[][] board){
+    public static void setCastling(String origin, String destination, Position[][] board) {
         int[] indexOrigin = convertPosition(origin);
         int[] indexDestination = convertPosition(destination);
         board = changeBoard(indexOrigin, indexDestination, board);
@@ -153,14 +159,14 @@ public class ControlGame {
             flagOK = true;
 
             /// castling moves
-            if (origin.equals("e1") && destiny.equals("g1")){
-                setCastling("h1","f1",board);
-            } else if (origin.equals("e1") && destiny.equals("c1")){
-                setCastling("a1","d1",board);
-            } else if (origin.equals("e8") && destiny.equals("g8")){
-                setCastling("h8", "f8",board);
-            } else if (origin.equals("e8") && destiny.equals("c8")){
-                setCastling("a8","d8",board);
+            if (origin.equals("e1") && destiny.equals("g1")) {
+                setCastling("h1", "f1", board);
+            } else if (origin.equals("e1") && destiny.equals("c1")) {
+                setCastling("a1", "d1", board);
+            } else if (origin.equals("e8") && destiny.equals("g8")) {
+                setCastling("h8", "f8", board);
+            } else if (origin.equals("e8") && destiny.equals("c8")) {
+                setCastling("a8", "d8", board);
             }
 
         } else {

@@ -11,28 +11,31 @@ public class King extends Piece {
     }
 
 
-    public int isCastleOK (boolean isWhite, Position [][] board){
-        try{
-        if (isWhite && board[0][4].getPiece().getValue() == Constants.KING_VALUE && board[0][4].getPiece().isWhite()
-                && board[0][7].getPiece().getValue() == Constants.ROOK_VALUE && board[0][7].getPiece().isWhite()
-                && board[0][5].isEmpty() && board[0][6].isEmpty()){
-                 return 1;
-        } else if (isWhite && board[0][4].getPiece().getValue() == Constants.KING_VALUE && board[0][4].getPiece().isWhite()
-                && board[0][0].getPiece().getValue() == Constants.ROOK_VALUE && board[0][0].getPiece().isWhite()
-                && board[0][1].isEmpty() && board[0][2].isEmpty() && board[0][3].isEmpty()){
-            return 2;
-        } else if (!isWhite && board[7][4].getPiece().getValue() == Constants.KING_VALUE && !board[7][4].getPiece().isWhite()
-                && board[7][0].getPiece().getValue() == Constants.ROOK_VALUE && !board[7][0].getPiece().isWhite() && board[7][1].isEmpty()
-                && board[7][2].isEmpty() && board[7][3].isEmpty()){
-              return 3;
-        } else if (!isWhite && board[7][4].getPiece().getValue() == Constants.KING_VALUE && !board[7][4].getPiece().isWhite()
-                && board[7][7].getPiece().getValue() == Constants.ROOK_VALUE && !board[7][7].getPiece().isWhite()
-                && board[7][5].isEmpty() && board[7][6].isEmpty()) {
-            return 4;
-        } else {
-            return 5;
+    public int isCastleOK(boolean isWhite, Position[][] board) {
+        try {
+            if (isWhite) {
+                if (board[0][4].getPiece().getValue() == Constants.KING_VALUE && board[0][4].getPiece().isWhite()
+                        && board[0][7].getPiece().getValue() == Constants.ROOK_VALUE && board[0][7].getPiece().isWhite()
+                        && board[0][5].isEmpty() && board[0][6].isEmpty()) {
+                    return 1;
+                } else if (board[0][4].getPiece().getValue() == Constants.KING_VALUE && board[0][4].getPiece().isWhite()
+                        && board[0][0].getPiece().getValue() == Constants.ROOK_VALUE && board[0][0].getPiece().isWhite()
+                        && board[0][1].isEmpty() && board[0][2].isEmpty() && board[0][3].isEmpty()) {
+                    return 2;
+                }
+            } else {
+                if (board[7][4].getPiece().getValue() == Constants.KING_VALUE && !board[7][4].getPiece().isWhite()
+                        && board[7][0].getPiece().getValue() == Constants.ROOK_VALUE && !board[7][0].getPiece().isWhite() && board[7][1].isEmpty()
+                        && board[7][2].isEmpty() && board[7][3].isEmpty()) {
+                    return 3;
+                } else if (board[7][4].getPiece().getValue() == Constants.KING_VALUE && !board[7][4].getPiece().isWhite()
+                        && board[7][7].getPiece().getValue() == Constants.ROOK_VALUE && !board[7][7].getPiece().isWhite()
+                        && board[7][5].isEmpty() && board[7][6].isEmpty()) {
+                    return 4;
+                }
             }
-        } catch (NullPointerException e){
+            return 5;
+        } catch (NullPointerException e) {
             return 5;
         }
     }
@@ -47,42 +50,42 @@ public class King extends Piece {
         boolean myColor = board[pos[0]][pos[1]].getPiece().isWhite();
 
         if (isCastleOK(myColor, board) == 1) {
-            for (int i = 0; i < 2; i++){
-                for (int j = 3 ; j < 6 ; j++){
-                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor){
+            for (int i = 0; i < 2; i++) {
+                for (int j = 3; j < 6; j++) {
+                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor) {
                         possibilities.add(ControlGame.numToLetter(j) + (i + 1));
                     }
                 }
             }
             possibilities.add("g1");
         } else if (isCastleOK(myColor, board) == 2) {
-            for (int i = 0; i < 2; i++){
-                for (int j = 3 ; j < 6 ; j++){
-                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor){
+            for (int i = 0; i < 2; i++) {
+                for (int j = 3; j < 6; j++) {
+                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor) {
                         possibilities.add(ControlGame.numToLetter(j) + (i + 1));
                     }
                 }
             }
             possibilities.add("c1");
         } else if (isCastleOK(myColor, board) == 3) {
-            for (int i = 7 ; i > 5; i--){
-                for (int j = 3; j < 6; j++){
-                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor){
+            for (int i = 7; i > 5; i--) {
+                for (int j = 3; j < 6; j++) {
+                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor) {
                         possibilities.add(ControlGame.numToLetter(j) + (i + 1));
                     }
                 }
             }
             possibilities.add("c8");
         } else if (isCastleOK(myColor, board) == 4) {
-            for (int i = 7 ; i > 5; i--){
-                for (int j = 3; j < 6; j++){
-                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor){
+            for (int i = 7; i > 5; i--) {
+                for (int j = 3; j < 6; j++) {
+                    if (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor) {
                         possibilities.add(ControlGame.numToLetter(j) + (i + 1));
                     }
                 }
             }
             possibilities.add("g8");
-        } else if (isCastleOK(myColor,board) == 5) {
+        } else if (isCastleOK(myColor, board) == 5) {
 
             //e4 -> 34(yx)   44
             if ((y != 0 && y != 7) && (x != 0 && x != 7)) {

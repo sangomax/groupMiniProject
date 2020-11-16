@@ -41,7 +41,7 @@ public class Validation {
                     }
                 }
             } else if (userInput.length() == 4) {
-                if (!isValidPosition(userInput.substring(0, 2)) && !isValidPosition(userInput.substring(2, 4))) {
+                if (!isValidPosition(userInput.substring(0, 2)) || !isValidPosition(userInput.substring(2, 4))) {
                     System.out.println(Constants.INVALID_INPUT_MESSAGE);
                     return false;
                 }
@@ -69,7 +69,7 @@ public class Validation {
                     }
                 }
             } else if (userInput.length() == 5) {
-                if (!isValidPosition(userInput.substring(0, 2)) && !isValidPosition(userInput.substring(2, 4))) {
+                if (!isValidPosition(userInput.substring(0, 2)) || !isValidPosition(userInput.substring(2, 4))) {
                     System.out.println(Constants.INVALID_INPUT_MESSAGE);
                     return false;
                 } else {
@@ -138,7 +138,7 @@ public class Validation {
     }
 
     public static boolean isKeepCheck(int[] indexOrigen, int[] indexDestiny, Position[][] board, boolean isWhiteTurn) {
-        Position copy = new Position(board[indexDestiny[0]][indexDestiny[1]].getPiece(),board[indexDestiny[0]][indexDestiny[1]].getCode());
+        Position copy = new Position(board[indexDestiny[0]][indexDestiny[1]].getPiece(), board[indexDestiny[0]][indexDestiny[1]].getCode());
         if (isCheck(ControlGame.changeBoard(indexOrigen, indexDestiny, board), !isWhiteTurn)) {
             ControlGame.changeBoard(indexDestiny, indexOrigen, board);
             board[indexDestiny[0]][indexDestiny[1]] = copy;
@@ -156,7 +156,7 @@ public class Validation {
                     int[] indexOrigen = ControlGame.convertPosition(col.getCode());
                     for (String possiblesMove : col.getPiece().move(col.getCode(), board)) {
                         int[] indexDestiny = ControlGame.convertPosition(possiblesMove);
-                        Position copy = new Position(board[indexDestiny[0]][indexDestiny[1]].getPiece(),board[indexDestiny[0]][indexDestiny[1]].getCode());
+                        Position copy = new Position(board[indexDestiny[0]][indexDestiny[1]].getPiece(), board[indexDestiny[0]][indexDestiny[1]].getCode());
                         if (!isCheck(ControlGame.changeBoard(indexOrigen, indexDestiny, board), isWhiteTurn)) {
                             ControlGame.changeBoard(indexDestiny, indexOrigen, board);
                             board[indexDestiny[0]][indexDestiny[1]] = copy;

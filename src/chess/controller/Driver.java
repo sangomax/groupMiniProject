@@ -57,6 +57,9 @@ public class Driver {
                                 }
                                 System.out.println(m);
                             } else {
+                                if(Validation.isStaleMate(board,isWhiteTurn)){
+                                    System.out.println("Draw Game");
+                                }
 //                                if(Validation.isCheckMate(board,isWhiteTurn)) {
 //                                    flagEndGame = true;
 //                                    System.out.println("Draw Game");

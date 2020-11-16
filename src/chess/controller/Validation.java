@@ -2,9 +2,7 @@ package chess.controller;
 
 import chess.model.Position;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class Validation {
 
@@ -30,7 +28,7 @@ public class Validation {
                     }
                 }
             } else if (userInput.length() == 4) {
-                if (!isValidPosition(userInput.substring(0, 2)) && !isValidPosition(userInput.substring(2, 4))) {
+                if (!isValidPosition(userInput.substring(0, 2)) || !isValidPosition(userInput.substring(2, 4))) {
                     System.out.println(Constants.INVALID_INPUT_MESSAGE);
                     return false;
                 } else {
@@ -51,7 +49,7 @@ public class Validation {
                     }
                 }
             } else if (userInput.length() == 5) {
-                if (!isValidPosition(userInput.substring(0, 2)) && !isValidPosition(userInput.substring(2, 4))) {
+                if (!isValidPosition(userInput.substring(0, 2)) || !isValidPosition(userInput.substring(2, 4))) {
                     System.out.println(Constants.INVALID_INPUT_MESSAGE);
                     return false;
                 } else {
@@ -102,7 +100,6 @@ public class Validation {
      * @param isWhiteTurn
      * @return true if checkmate, false if not
      */
-
     public static boolean isCheck(Position[][] board, boolean isWhiteTurn) {
         HashMap<String, ArrayList<String>> possiblesMoves = ControlGame.listAllPossibleMoves(board, isWhiteTurn);
         Set<String> origins = possiblesMoves.keySet();

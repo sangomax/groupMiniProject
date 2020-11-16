@@ -42,6 +42,9 @@ public class Driver {
                         } else {
                             Object[] o = ControlGame.move(board, inputMove[0], inputMove[1], inputMove[2]);
                             if (!(boolean) o[1]) {
+                                if(isCheck) {
+                                    System.out.println(Constants.KING_IS_CHECK_MESSAGE);
+                                }
                                 continue;
                             }
                             board = (Position[][]) o[0];

@@ -97,7 +97,13 @@ public class ControlGame {
     public static void listPossibleMoves(Position[][] board, String pos) {
         int[] indexOrigin = convertPosition(pos);
         Piece piece = board[indexOrigin[0]][indexOrigin[1]].getPiece();
-        System.out.println(removeMovesCheck(piece.move(pos, board), indexOrigin, board, piece.isWhite()));
+        ArrayList<String> listMoves = removeMovesCheck(piece.move(pos, board), indexOrigin, board, piece.isWhite());
+        if(listMoves.size() > 0) {
+            System.out.println(Constants.POSSIBLE_MOVE_MESSAGE + " " + pos);
+            System.out.println(listMoves);
+        } else {
+            System.out.println(Constants.NO_POSSIBLE_MOVE_MESSAGE + " " + pos);
+        }
     }
 
     public static HashMap<String, ArrayList<String>> listAllPossibleMoves(Position[][] board, boolean isWhite) {

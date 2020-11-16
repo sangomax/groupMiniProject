@@ -63,17 +63,19 @@ public class ControlGame {
     }
 
     public static int letterToNum(String letter) {
-        HashMap<String, Integer> listLetterToNum = new HashMap<>();
-        listLetterToNum.put("a", 0);
-        listLetterToNum.put("b", 1);
-        listLetterToNum.put("c", 2);
-        listLetterToNum.put("d", 3);
-        listLetterToNum.put("e", 4);
-        listLetterToNum.put("f", 5);
-        listLetterToNum.put("g", 6);
-        listLetterToNum.put("h", 7);
 
-        return listLetterToNum.get(letter);
+            HashMap<String, Integer> listLetterToNum = new HashMap<>();
+            listLetterToNum.put("a", 0);
+            listLetterToNum.put("b", 1);
+            listLetterToNum.put("c", 2);
+            listLetterToNum.put("d", 3);
+            listLetterToNum.put("e", 4);
+            listLetterToNum.put("f", 5);
+            listLetterToNum.put("g", 6);
+            listLetterToNum.put("h", 7);
+
+            return listLetterToNum.get(letter);
+
     }
 
     public static String numToLetter(int letter) {
@@ -101,7 +103,6 @@ public class ControlGame {
     }
 
     public static HashMap<String, ArrayList<String>> listAllPossibleMoves(Position[][] board, boolean isWhite) {
-        ArrayList<String> allPossibleMoves = new ArrayList<>();
         HashMap<String, ArrayList<String>> allOriginWithMove = new HashMap<>();
 
         for (Position[] row : board) {

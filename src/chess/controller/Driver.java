@@ -4,7 +4,6 @@ import chess.model.Position;
 import chess.view.BoardGame;
 import chess.view.Messages;
 
-import java.util.ArrayList;
 
 public class Driver {
 
@@ -66,7 +65,6 @@ public class Driver {
 
                     }
             }
-
 
             //change player
             isWhiteTurn = !isWhiteTurn;

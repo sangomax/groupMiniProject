@@ -27,15 +27,33 @@ public class Validation {
                             System.out.println(Constants.INVALID_INPUT_MESSAGE);
                             return false;
                         }
+                        //
+                        if (isWhiteTurn && !ControlGame.listAllPossibleMoves(board, true).containsKey(userInput)){
+                            System.out.println(Constants.TYPE_MOVES_HELP_MESSAGE);
+                            return false;
+                        }
+                        if (!isWhiteTurn && !ControlGame.listAllPossibleMoves(board,false).containsKey(userInput)){
+                            System.out.println(Constants.TYPE_MOVES_HELP_MESSAGE);
+                            return false;
+                        }
+
+                        //
                     }
                 }
             } else if (userInput.length() == 4) {
                 if (!isValidPosition(userInput.substring(0, 2)) && !isValidPosition(userInput.substring(2, 4))) {
                     System.out.println(Constants.INVALID_INPUT_MESSAGE);
                     return false;
-                } else {
+                }
+                //
+                if (!isValidPosition(userInput.substring(0, 2)) || !isValidPosition(userInput.substring(2, 4))){
+                    System.out.println(Constants.INVALID_INPUT_MESSAGE);
+                    return false;
+                } //
+                else {
                     int[] indexsOrigin = ControlGame.convertPosition(userInput.substring(0, 2));
                     int[] indexsDestiny = ControlGame.convertPosition(userInput.substring(2, 4));
+
                     if (board[indexsOrigin[0]][indexsOrigin[1]].isEmpty()) {
                         System.out.println(Constants.INVALID_INPUT_MESSAGE);
                         return false;
@@ -162,7 +180,7 @@ public class Validation {
                     if (!origen.getCode().substring(0, 1).equals(destiny.getCode().substring(0, 1))) {
                         char letter = origen.getCode().substring(0, 1).toCharArray()[0];
                         if (destiny.isEmpty()) {
-                            throw new IllegalArgumentException("This moviment is invalid");
+                            throw new IllegalArgumentException("This movement is invalid");
                         }
                     }
 

@@ -78,19 +78,20 @@ public class Pawn extends Piece {
         int x = index[1];
         int y = index[0];
 
-        if (!board[y][x + 1].isEmpty())
+        if (x + 1 < 8 && x + 1 > - 1 && !board[y][x + 1].isEmpty())
             if (board[y + 1][x + 1].isEmpty()
                 && board[y][x + 1].getPiece() instanceof Pawn
                 && board[y][x + 1].getPiece().isWhite() != isWhite())
                 return true;
 
-            else if (!board[y][x - 1].isEmpty());
-        if (board[y - 1][x - 1].isEmpty()
-            && board[y][x - 1].getPiece() instanceof Pawn
-            && board[y][x - 1].getPiece().isWhite() != isWhite())
-            return true;
+        else if (x - 1 < 8 && x - 1 > - 1 && !board[y][x - 1].isEmpty());
+            if (board[y - 1][x - 1].isEmpty()
+                && board[y][x - 1].getPiece() instanceof Pawn
+                && board[y][x - 1].getPiece().isWhite() != isWhite())
+                return true;
 
-        return false;
+        else
+            return false;
     }
 
     @Override
@@ -110,10 +111,10 @@ public class Pawn extends Piece {
                 }
                 if (position.substring(1, 2).equals("5")) {
                     if (canCaptureEnPassant(position, board)) {
-                        if (!board[indexNumber][indexLetter + 1].isEmpty()){
+                        if (indexLetter + 1 < 8 && !board[indexNumber][indexLetter + 1].isEmpty()){
                             possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber + 2));
                         }
-                        if (!board[indexNumber][indexLetter - 1].isEmpty()){
+                        if (indexLetter - 1 > - 1 && !board[indexNumber][indexLetter - 1].isEmpty()){
                             possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber + 2));
                         }
                     }
@@ -145,19 +146,19 @@ public class Pawn extends Piece {
                         possibilities.add(position.substring(0, 1) + 5);
                     }
                 }
-                if (position.substring(1, 2).equals("4")) {
-                    if (canCaptureEnPassant(position, board)) {
-                        if (!board[indexNumber][indexLetter + 1].isEmpty()){
-                            possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber));
-                        }
-                        if (!board[indexNumber][indexLetter - 1].isEmpty()){
-                            possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber));
-                        }
-                    }
-                }
                 if (!position.substring(1, 2).equals("1")) {
                     if (board[indexNumber - 1][indexLetter].isEmpty()) {
                         possibilities.add(position.substring(0, 1) + (Integer.valueOf(position.substring(1, 2)) - 1));
+                    }
+                    if (position.substring(1, 2).equals("4")) {
+                        if (canCaptureEnPassant(position, board)) {
+                            if (indexLetter + 1 < 8 && !board[indexNumber][indexLetter + 1].isEmpty()){
+                                possibilities.add(ControlGame.numToLetter(indexLetter + 1) + (indexNumber));
+                            }
+                            if (indexLetter - 1 > - 1 && !board[indexNumber][indexLetter - 1].isEmpty()){
+                                possibilities.add(ControlGame.numToLetter(indexLetter - 1) + (indexNumber));
+                            }
+                        }
                     }
                     if (position.substring(0, 1).equals("a") && !board[indexNumber - 1][ControlGame.letterToNum("b")].isEmpty() && (board[indexNumber - 1][ControlGame.letterToNum("b")].getPiece().isWhite() != isWhite())) {
                         possibilities.add("b" + (Integer.valueOf(position.substring(1, 2)) - 1));

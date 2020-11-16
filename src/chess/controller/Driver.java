@@ -4,8 +4,6 @@ import chess.model.Position;
 import chess.view.BoardGame;
 import chess.view.Messages;
 
-import java.util.ArrayList;
-
 public class Driver {
 
     public static void main(String[] args) {
@@ -31,7 +29,7 @@ public class Driver {
                     flagEndGame = true;
                     break;
                 case "move":
-                    System.out.println(ControlGame.cleanMovesCheck(ControlGame.listAllPossibleMoves(board, isWhiteTurn),board, isWhiteTurn));
+                    System.out.println(ControlGame.cleanMovesCheck(ControlGame.listAllPossibleMoves(board, isWhiteTurn), board, isWhiteTurn));
                     continue;
                 default:
                     if (Validation.isValidInput(userInput, isWhiteTurn, board)) {
@@ -42,17 +40,17 @@ public class Driver {
                         } else {
                             Object[] o = ControlGame.move(board, inputMove[0], inputMove[1], inputMove[2]);
                             if (!(boolean) o[1]) {
-                                if(isCheck) {
+                                if (isCheck) {
                                     System.out.println(Constants.KING_IS_CHECK_MESSAGE);
                                 }
                                 continue;
                             }
                             board = (Position[][]) o[0];
                             BoardGame.drawBoard(board);
-                            isCheck = Validation.isCheck(board,isWhiteTurn); // return true if checkmate
-                            if(isCheck) {
+                            isCheck = Validation.isCheck(board, isWhiteTurn); // return true if checkmate
+                            if (isCheck) {
                                 String m = "Check";
-                                if(Validation.isCheckMate(board,isWhiteTurn)) {
+                                if (Validation.isCheckMate(board, isWhiteTurn)) {
                                     flagEndGame = true;
                                     m = "CheckMate";
                                 }

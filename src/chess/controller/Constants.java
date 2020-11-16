@@ -1,9 +1,5 @@
 package chess.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Constants {
 
     public static final int PAWN_VALUE = 1;

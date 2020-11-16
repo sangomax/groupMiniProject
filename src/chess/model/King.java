@@ -2,7 +2,6 @@ package chess.model;
 
 import chess.controller.Constants;
 import chess.controller.ControlGame;
-
 import java.util.ArrayList;
 
 public class King extends Piece {
@@ -88,6 +87,7 @@ public class King extends Piece {
             possibilities.add("g8");
         } else if (isCastleOK(myColor, board) == 5) {
 
+            //e4 -> 34(yx)   44
             if ((y != 0 && y != 7) && (x != 0 && x != 7)) {
                 for (int i = y - 1; i < y + 2; i++) {
                     for (int j = x - 1; j < x + 2; j++) {
@@ -101,7 +101,7 @@ public class King extends Piece {
             if (y == 7) {
                 if (x == 7) {
                     for (int i = y - 1; i < y + 1; i++) {
-                        for (int j = x - 1; j < x + 2; j++) {
+                        for (int j = x - 1; j < x + 1; j++) {
                             if (board[i][j] != board[pos[0]][pos[1]] && (board[i][j].isEmpty() || board[i][j].getPiece().isWhite() != myColor)) {
                                 possibilities.add(ControlGame.numToLetter(j) + (i + 1));
                             }
